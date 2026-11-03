@@ -1,0 +1,209 @@
+/* SolitaireSorter's site: the green felt table from the app's Felt theme, with the features dealt out as cards. */
+:root {
+  --felt: #1e8c31;
+  --felt-dark: #0e5520;
+  --felt-deep: #0b4a18;
+  --edge: #08400f;
+  --text: #ffffff;
+  --muted: #cfe8d3;
+  --accent: #3da5ff;
+  --red: #d8303f;
+  --maroon: #7a1c2a;
+  --face: #fbfaf6;
+  --ink: #191c21;
+  --ink-muted: #535b68;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  background-color: var(--felt);
+  /* Felt: soft mottling plus fine grain, drawn by the browser. */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0.12 0 0 0 0 0 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+}
+
+a { color: var(--text); }
+
+.bar {
+  background: var(--felt-dark);
+  border-bottom: 1px solid var(--edge);
+}
+
+header.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px max(16px, calc((100vw - 1100px) / 2));
+}
+
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+
+.wordmark {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 4px;
+}
+.wordmark span { color: var(--accent); }
+
+nav { display: flex; gap: 20px; }
+nav a { text-decoration: none; color: var(--muted); font-weight: 500; }
+nav a:hover { color: var(--text); }
+
+main { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 48px;
+  align-items: center;
+  padding: 72px 0 56px;
+}
+
+h1, h2 {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  margin: 0 0 16px;
+}
+h1 { font-size: clamp(40px, 6vw, 60px); }
+h2 { font-size: 36px; }
+
+.lead { font-size: 19px; color: var(--muted); margin: 0 0 24px; }
+
+.soon { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #0b1220;
+  font-weight: 600;
+  font-size: 15px;
+}
+.chip.quiet { background: rgba(0, 30, 8, 0.5); color: var(--muted); border: 1px solid var(--edge); }
+
+.screen {
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  background: #121519;
+  border: 6px solid #0b1a0e;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+.screen-inner {
+  height: 100%;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  color: #98a1ae;
+}
+.screen-inner p { margin: 0; font-weight: 500; }
+
+.table { padding: 56px 0; }
+
+.hand {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 24px;
+}
+
+.card {
+  position: relative;
+  background: var(--face);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 44px 24px 26px;
+  box-shadow: 0 2px 0 #d9d6cc, 0 12px 26px rgba(0, 0, 0, 0.3);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.25s ease;
+}
+.card:hover { transform: rotate(0deg) translateY(-4px); }
+.card h3 { margin: 0 0 8px; font-size: 20px; }
+.card p { margin: 0; color: var(--ink-muted); }
+
+.pip {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 0.9;
+}
+.pip b { font-size: 16px; }
+.card.red .pip { color: var(--red); }
+
+/* Dealing in (the script adds these only when motion is fine). */
+.card.waiting { opacity: 0; transform: translate(-60px, -40px) rotate(-14deg); }
+.card.dealt {
+  opacity: 1;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.5s cubic-bezier(0.2, 1.3, 0.4, 1) var(--delay), opacity 0.3s ease var(--delay);
+}
+
+.felt-panel {
+  background: rgba(0, 30, 8, 0.45);
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  padding: 32px;
+  margin: 24px 0;
+}
+
+.facts { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 32px; }
+.facts li { color: var(--muted); }
+.facts strong { color: var(--text); display: block; }
+
+.faq { display: grid; gap: 10px; max-width: 760px; }
+details {
+  background: rgba(0, 30, 8, 0.45);
+  border: 1px solid var(--edge);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+summary { cursor: pointer; font-weight: 600; }
+details p { margin: 10px 0 0; color: var(--muted); }
+
+.foot { padding: 28px 16px; text-align: center; border-top: 1px solid var(--edge); border-bottom: 0; margin-top: 40px; }
+.foot p { margin: 4px 0; }
+.small { font-size: 14px; color: var(--muted); }
+
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; padding-top: 40px; }
+  .hand { grid-template-columns: 1fr 1fr; }
+  .facts { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  nav { gap: 14px; font-size: 15px; }
+  .wordmark { font-size: 19px; letter-spacing: 3px; }
+  .hand { grid-template-columns: 1fr; }
+  .card { transform: none; }
+  .felt-panel { padding: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .card, .card:hover { transition: none; }
+}
