@@ -35,8 +35,8 @@
           <span class="chip quiet">Windows 10 and 11</span>
         </div>
       </div>
-      <!-- Put the YouTube video's ID in data-video once the trailer is uploaded. Until then this says it's coming. -->
-      <div id="trailer" class="screen" data-video="">
+      <!-- data-video is the trailer's YouTube ID (youtu.be/9eMVZioxbNM). With it empty, this says the trailer is coming. -->
+      <div id="trailer" class="screen" data-video="9eMVZioxbNM">
         <div class="screen-inner">
           <img src="assets/logo.png" alt="" width="96" height="96">
           <p>Trailer coming soon</p>
@@ -155,7 +155,8 @@
     });
     openQuestion(location.hash.slice(1));
 
-    // The trailer shows YouTube's thumbnail and only loads YouTube's player (privacy-enhanced mode) when clicked.
+    // The trailer shows its YouTube thumbnail (the full-size one, since the video has its own 1280 x 720 thumbnail)
+    // and only loads YouTube's player (privacy-enhanced mode) when clicked.
     const trailer = document.getElementById('trailer');
     const video = trailer.dataset.video;
     if (video) {
@@ -164,7 +165,7 @@
       play.className = 'play';
       play.type = 'button';
       play.setAttribute('aria-label', 'Play the trailer');
-      play.style.backgroundImage = 'url(https://i.ytimg.com/vi/' + video + '/hqdefault.jpg)';
+      play.style.backgroundImage = 'url(https://i.ytimg.com/vi/' + video + '/maxresdefault.jpg)';
       play.innerHTML = '<span aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>';
       play.addEventListener('click', () => {
         const frame = document.createElement('iframe');

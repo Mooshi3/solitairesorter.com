@@ -119,7 +119,9 @@ h2 { font-size: 36px; }
   padding: 0;
   cursor: pointer;
   display: grid;
-  place-items: center;
+  /* The button sits over the cluttered left side of the thumbnail, so it doesn't cover the name on the right. */
+  place-items: center start;
+  padding-left: calc(27% - 44px);
   background: var(--screen) center / cover no-repeat;
 }
 .play span {
