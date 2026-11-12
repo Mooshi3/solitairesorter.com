@@ -15,7 +15,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <!-- The ?v= changes whenever style.css does, so browsers don't keep showing an old copy. -->
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <header class="bar">
@@ -36,60 +37,74 @@
         </div>
       </div>
       <!-- data-video is the trailer's YouTube ID (youtu.be/9eMVZioxbNM). With it empty, this says the trailer is coming. -->
-      <div id="trailer" class="screen" data-video="9eMVZioxbNM">
-        <div class="screen-inner">
-          <img src="assets/logo.png" alt="" width="96" height="96">
-          <p>Trailer coming soon</p>
+      <div class="monitor">
+        <div id="trailer" class="screen" data-video="9eMVZioxbNM">
+          <div class="screen-inner">
+            <img src="assets/logo.png" alt="" width="96" height="96">
+            <p>Trailer coming soon</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="features" class="table">
       <h2>Features</h2>
-      <!-- Each card's clip shows its first frame, and the script at the bottom plays it while it's on screen. -->
-      <div class="hand">
-        <article class="card" style="--tilt:-3deg">
+      <!-- Each clip shows its first frame, and the script at the bottom plays it while it's on screen. -->
+      <div class="shows">
+        <article class="card show" style="--tilt:-0.6deg">
           <span class="pip">A<b>&spades;&#xFE0E;</b></span>
           <video class="loop" src="loops/make-deck.mp4" poster="loops/make-deck.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
-          <h3>Make any icon into a deck</h3>
-          <p>Right-click any desktop icon and make it a deck. A deck holds other icons, deals them out onto the desktop when you open it, and gathers them back up when you close it. It works on folders, programs and anything else, and the icon still does its old job. Click a game you've made into a deck and the game still launches. Click its deal button and the deck opens.</p>
+          <div class="words">
+            <h3>Make any icon into a deck</h3>
+            <p>Right-click any desktop icon and make it a deck. A deck holds other icons, deals them out onto the desktop when you open it, and gathers them back up when you close it. It works on folders, programs and anything else, and the icon still does its old job. Click a game you've made into a deck and the game still launches. Click its deal button and the deck opens.</p>
+          </div>
         </article>
-        <article class="card red" style="--tilt:2deg">
+        <article class="card show red flip" style="--tilt:0.6deg">
           <span class="pip">2<b>&hearts;&#xFE0E;</b></span>
           <video class="loop" src="loops/deal.mp4" poster="loops/deal.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
-          <h3>Deals out like cards</h3>
-          <p>Choose how the cards come out, from a fan to a cascade, and adjust how fast and bouncy they are.</p>
+          <div class="words">
+            <h3>Deals out like cards</h3>
+            <p>Choose how the cards come out, from a fan to a cascade, and adjust how fast and bouncy they are.</p>
+          </div>
         </article>
-        <article class="card" style="--tilt:-1deg">
+        <article class="card show" style="--tilt:-0.6deg">
           <span class="pip">3<b>&clubs;&#xFE0E;</b></span>
           <video class="loop" src="loops/subdeck.mp4" poster="loops/subdeck.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
-          <h3>Decks inside decks</h3>
-          <p>A card inside a deck can be made into a subdeck, with its own cards and its own deal button. Keep a Games deck with a subdeck for each genre, or a School deck with one per class. Leave a subdeck open when you close its deck, and next time they open together.</p>
+          <div class="words">
+            <h3>Decks inside decks</h3>
+            <p>A card inside a deck can be made into a subdeck, with its own cards and its own deal button. Keep a Games deck with a subdeck for each genre, or a School deck with one per class. Leave a subdeck open when you close its deck, and next time they open together.</p>
+          </div>
         </article>
-        <article class="card red" style="--tilt:3deg">
+        <article class="card show red flip" style="--tilt:0.6deg">
           <span class="pip">4<b>&diams;&#xFE0E;</b></span>
           <video class="loop" src="loops/make-it-yours.mp4" poster="loops/make-it-yours.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
-          <h3>Make it yours</h3>
-          <p>Give the deal button your own color, picture or animated GIF. Choose card sizes, a free layout that sizes cards by how much you use them, and lots more. Mods can add even more. A Smart Deck of your Steam games, a CPU meter, a solitaire game played with your own icons and two new deal animations come with it as examples of mod functionality.</p>
+          <div class="words">
+            <h3>Make it yours</h3>
+            <p>Give the deal button your own color, picture or animated GIF. Choose card sizes, a free layout that sizes cards by how much you use them, and lots more. Mods can add even more. A Smart Deck of your Steam games, a CPU meter, a solitaire game played with your own icons and two new deal animations come with it as examples of mod functionality.</p>
+          </div>
         </article>
-        <article class="card" style="--tilt:-2deg">
+        <article class="card show" style="--tilt:-0.6deg">
           <span class="pip">5<b>&spades;&#xFE0E;</b></span>
           <video class="loop" src="loops/whole-desktop.mp4" poster="loops/whole-desktop.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
-          <h3>The whole desktop as cards</h3>
-          <p>Turn every desktop icon into a card so your whole desktop matches your decks, with springy clicks, your own highlight colors and your choice of font. Cards keep Explorer's right-click menu, drag and drop, and keys like F2, Delete and Ctrl+C.</p>
+          <div class="words">
+            <h3>The whole desktop as cards</h3>
+            <p>Turn every desktop icon into a card so your whole desktop matches your decks, with springy clicks, your own highlight colors and your choice of font. Cards keep Explorer's right-click menu, drag and drop, and keys like F2, Delete and Ctrl+C.</p>
+          </div>
         </article>
-        <article class="card red" style="--tilt:1deg">
+      </div>
+      <div class="hand">
+        <article class="card red" style="--tilt:-1deg">
           <span class="pip">6<b>&hearts;&#xFE0E;</b></span>
           <h3>Undo everything</h3>
           <p>Filing something moves it into a folder. Nothing is deleted. Undo puts it all back on your desktop, and so can uninstalling.</p>
           <p class="more"><a href="#where">Where do my files go?</a></p>
         </article>
+        <article class="card" style="--tilt:1deg">
+          <span class="pip">7<b>&clubs;&#xFE0E;</b></span>
+          <h3>Light and offline</h3>
+          <p>SolitaireSorter works offline. It only goes online to check for updates, which you can turn off, and mods only go online if you allow them. It installs just for your user account, so running it never needs admin rights. It's light on memory and steps aside while a fullscreen game is running.</p>
+        </article>
       </div>
-      <article class="card wide" style="--tilt:-0.5deg">
-        <span class="pip">7<b>&clubs;&#xFE0E;</b></span>
-        <h3>Light and offline</h3>
-        <p>SolitaireSorter works offline. It only goes online to check for updates, which you can turn off, and mods only go online if you allow them. It installs just for your user account, so running it never needs admin rights. It's light on memory and steps aside while a fullscreen game is running.</p>
-      </article>
     </section>
 
     <section id="faq" class="table">

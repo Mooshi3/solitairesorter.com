@@ -12,6 +12,8 @@
   --ink-muted: #535b68;
   --link-on-face: #1a5fb4;
   --screen: #121519;
+  --bezel: #16191e;
+  --bezel-edge: #2b3038;
 }
 
 * { box-sizing: border-box; }
@@ -91,16 +93,27 @@ h2 { font-size: 36px; }
 }
 .chip.quiet { background: rgba(0, 30, 8, 0.5); color: var(--muted); border: 1px solid var(--edge); }
 
-/* The trailer box. */
+/* The trailer box, in a monitor with a dark bezel and a stand, so the green desktop in it stands apart from the
+   green page. */
+.monitor { width: 100%; max-width: 960px; }
 .screen {
   width: 100%;
-  max-width: 960px;
   aspect-ratio: 16 / 9;
-  border-radius: 10px;
+  border-radius: 18px;
   background: var(--screen);
-  border: 6px solid #0b1a0e;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  border: 14px solid var(--bezel);
+  box-shadow: 0 0 0 1px var(--bezel-edge), 0 22px 50px rgba(0, 0, 0, 0.45);
   overflow: hidden;
+}
+.monitor::after {
+  content: "";
+  display: block;
+  width: 26%;
+  height: 34px;
+  margin: 0 auto;
+  background: linear-gradient(var(--bezel-edge), var(--bezel));
+  /* A narrow neck, then a wide foot. */
+  clip-path: polygon(40% 0, 60% 0, 60% 62%, 100% 62%, 100% 100%, 0 100%, 0 62%, 40% 62%);
 }
 .screen-inner {
   height: 100%;
@@ -162,17 +175,35 @@ h2 { font-size: 36px; }
 .card .more { margin-top: 10px; font-weight: 500; }
 .card a { color: var(--link-on-face); }
 .card a:hover { color: #123f78; }
-.card.wide { margin-top: 28px; padding: 22px 24px 22px 60px; }
+/* The features with a clip are wide cards, the clip big beside the words and switching sides card to card. On a
+   narrow screen the clip goes on top. */
+.shows { display: grid; gap: 34px; margin-top: 24px; }
+.card.show {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: 30px;
+  align-items: center;
+  padding: 42px 30px 30px;
+}
+.card.show.flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr); }
+.card.show.flip .loop { order: 2; }
+.card.show h3 { font-size: 24px; }
+.shows + .hand { margin-top: 34px; }
 
-/* A feature's looping clip, once it has one. */
+/* A feature's looping clip, in a dark bezel like the trailer's. */
 .loop {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
-  margin: 0 0 16px;
-  border-radius: 8px;
+  border-radius: 10px;
+  border: 6px solid var(--bezel);
   background: var(--screen);
   object-fit: cover;
+}
+
+@media (max-width: 820px) {
+  .card.show, .card.show.flip { grid-template-columns: 1fr; gap: 18px; padding: 42px 20px 24px; }
+  .card.show.flip .loop { order: 0; }
 }
 
 .pip {
@@ -192,6 +223,7 @@ h2 { font-size: 36px; }
 
 /* Dealing in (the script adds these only when motion is fine). */
 .card.waiting { opacity: 0; transform: translate(-60px, -40px) rotate(-14deg); }
+.card.show.waiting { transform: translate(-40px, 30px) rotate(-3deg); }   /* a wide card tips in less */
 .card.dealt {
   opacity: 1;
   transform: rotate(var(--tilt, 0deg));
