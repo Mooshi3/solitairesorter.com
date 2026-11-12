@@ -46,31 +46,35 @@
 
     <section id="features" class="table">
       <h2>Features</h2>
-      <!-- Each card gets its loop as the first thing after the pip once the clips exist:
-           <video class="loop" src="loops/deal.mp4" poster="loops/deal.jpg" autoplay loop muted playsinline></video> -->
+      <!-- Each card's clip shows its first frame, and the script at the bottom plays it while it's on screen. -->
       <div class="hand">
         <article class="card" style="--tilt:-3deg">
           <span class="pip">A<b>&spades;&#xFE0E;</b></span>
+          <video class="loop" src="loops/make-deck.mp4" poster="loops/make-deck.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
           <h3>Make any icon into a deck</h3>
           <p>Right-click any desktop icon and make it a deck. A deck holds other icons, deals them out onto the desktop when you open it, and gathers them back up when you close it. It works on folders, programs and anything else, and the icon still does its old job. Click a game you've made into a deck and the game still launches. Click its deal button and the deck opens.</p>
         </article>
         <article class="card red" style="--tilt:2deg">
           <span class="pip">2<b>&hearts;&#xFE0E;</b></span>
+          <video class="loop" src="loops/deal.mp4" poster="loops/deal.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
           <h3>Deals out like cards</h3>
           <p>Choose how the cards come out, from a fan to a cascade, and adjust how fast and bouncy they are.</p>
         </article>
         <article class="card" style="--tilt:-1deg">
           <span class="pip">3<b>&clubs;&#xFE0E;</b></span>
+          <video class="loop" src="loops/subdeck.mp4" poster="loops/subdeck.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
           <h3>Decks inside decks</h3>
           <p>A card inside a deck can be made into a subdeck, with its own cards and its own deal button. Keep a Games deck with a subdeck for each genre, or a School deck with one per class. Leave a subdeck open when you close its deck, and next time they open together.</p>
         </article>
         <article class="card red" style="--tilt:3deg">
           <span class="pip">4<b>&diams;&#xFE0E;</b></span>
+          <video class="loop" src="loops/make-it-yours.mp4" poster="loops/make-it-yours.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
           <h3>Make it yours</h3>
           <p>Give the deal button your own color, picture or animated GIF. Choose card sizes, a free layout that sizes cards by how much you use them, and lots more. Mods can add even more. A Smart Deck of your Steam games, a CPU meter, a solitaire game played with your own icons and two new deal animations come with it as examples of mod functionality.</p>
         </article>
         <article class="card" style="--tilt:-2deg">
           <span class="pip">5<b>&spades;&#xFE0E;</b></span>
+          <video class="loop" src="loops/whole-desktop.mp4" poster="loops/whole-desktop.jpg" loop muted playsinline preload="none" aria-hidden="true"></video>
           <h3>The whole desktop as cards</h3>
           <p>Turn every desktop icon into a card so your whole desktop matches your decks, with springy clicks, your own highlight colors and your choice of font. Cards keep Explorer's right-click menu, drag and drop, and keys like F2, Delete and Ctrl+C.</p>
         </article>
@@ -126,6 +130,18 @@
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('dealt'); seen.unobserve(e.target); } });
       }, { threshold: 0.2 });
       cards.forEach(c => seen.observe(c));
+    }
+
+    // Each feature's clip plays only while it's on screen, so it doesn't download or run until you get there. If
+    // you've asked for less motion, they stay still on their first frame.
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      const onScreen = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) e.target.play().catch(() => {});
+          else e.target.pause();
+        });
+      }, { threshold: 0.25 });
+      document.querySelectorAll('video.loop').forEach(v => onScreen.observe(v));
     }
 
     // A link to a question opens it as well as scrolling to it.
